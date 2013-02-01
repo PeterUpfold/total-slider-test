@@ -22,3 +22,6 @@
 [submodule "config/scripts/modules"]
 	path = config/scripts/modules
 	url = git://github.com/vanpattenmedia/vpmframe-module-scripts.git
+[submodule "public/content/plugins/total-slider"]
+	path = public/content/plugins/total-slider
+	url = git@github.com:vanpattenmedia/total-slider.git
