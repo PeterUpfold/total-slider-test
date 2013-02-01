@@ -1,0 +1,29 @@
+name: total-slider-test
+repo: git://github.com/PeterUpfold/total-slider-test.git
+deploy_user: deploy
+user: totalslider
+access_users: [deploy, totalslider, peter, chris]
+group: totalslider-sitewriters
+theme: twentytwelve
+domain: total-slider-test.com
+
+stage:
+  dev:
+    ip: 127.0.0.1
+    http_port: 8080
+    ssh_port: 2222
+    user: vagrant
+    upload_url_path: 
+    upload_path: 
+  staging:
+    ip: 0.0.0.0
+    ssh_port: 0
+    user: deploy
+    upload_url_path: 
+    upload_path: 
+  production:
+    ip: 0.0.0.0
+    ssh_port: 0
+    user: deploy
+    upload_url_path: 
+    upload_path: 

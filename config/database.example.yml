@@ -1,0 +1,26 @@
+dev:
+  name:
+  user:
+  password:
+  host: localhost
+  grant_to: localhost
+  tbl_prefix: wp_
+
+staging:
+  name:
+  user:
+  password:
+  host:
+  grant_to:
+  # "grant_to" is the name of the server that will be requesting access
+  # to the database, if you're using a separate DB server.
+  # This should probably just be localhost.
+  tbl_prefix: wp_
+
+production:
+  name:
+  user:
+  password:
+  host:
+  grant_to:
+  tbl_prefix: wp_

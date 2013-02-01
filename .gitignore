@@ -1,0 +1,24 @@
+# WordPress
+public/content/uploads
+
+# Ignore things with passwords
+database.yml
+s3.yml
+wp-salts.php
+
+# Misc.
+.sass-cache
+.DS_Store
+cache
+
+# Vagrant and Puppet
+.vagrant
+vagrant_nginx_postprocess
+site.pp
+.cache
+vagrant-custom.rb
+
+# Site
+public/content/themes/twentytwelve/css/
+public/content/themes/twentytwelve/js/
+public/content/themes/twentytwelve/img/

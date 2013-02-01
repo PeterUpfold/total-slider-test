@@ -1,0 +1,115 @@
+# Rendered: <%= Time.now.utc %>
+
+
+##################################
+#                                #
+#            Variables           #
+#                                #
+##################################
+
+$app_stage     = "<%= app_stage %>"
+$app_domain    = "<%= app_domain %>"
+$site_domain   = "<%= site_domain %>"
+$app_deploy_to = "<%= app_deploy_to %>"
+$app_theme     = "<%= app_theme %>"
+$app_name      = "<%= app_name %>"
+$app_user      = "<%= app_user %>"
+$app_group     = "<%= app_group %>"
+
+# random minute for cron
+$random_minute = "<%= rand(60) %>"
+
+<%
+config_path    = "/home/deploy/tmp/#{app_name}/#{app_stage}"
+modules_path   = "./config/puppet/modules"
+
+# allow us to include ERB fragments with the render statement
+require "./config/erb-render.rb"
+
+%>
+$config_path = "<%= config_path %>"
+
+
+##################################
+#                                #
+#          Defines               #
+#                                #
+##################################
+
+<%= render "#{modules_path}/defines/cron-job.erb" , binding %>
+<%= render "#{modules_path}/defines/mysql.erb", binding %>
+<%= render "#{modules_path}/defines/vcl-rule.erb", binding %>
+
+
+##################################
+#                                #
+#     Vagrant DNS override       #
+#                                #
+##################################
+
+<% if app_stage == "dev" %>
+file { "/etc/resolv.conf":
+	owner => root,
+	group => root,
+	mode => 644,
+	source => "<%= config_path %>/scripts/modules/vagrant_resolv.conf"
+}
+<% end %>
+
+
+##################################
+#                                #
+#      Users, groups and dirs    #
+#                                #
+##################################
+
+<%= render "#{modules_path}/users.erb", binding %>
+<%= render "#{modules_path}/home-directories.erb", binding %>
+
+
+##################################
+#                                #
+#       Nginx configuration      #
+#                                #
+##################################
+
+<%= render "#{modules_path}/nginx/base.erb", binding %>
+<%= render "#{modules_path}/nginx/uploads.erb", binding %>
+
+
+##################################
+#                                #
+#        PHP configuration       #
+#                                #
+##################################
+
+<%= render "#{modules_path}/php5-fpm.erb", binding %>
+<%= render "#{modules_path}/php-logging.erb", binding %>
+
+
+##################################
+#                                #
+#            Varnish             #
+#                                #
+##################################
+
+<%= render "#{modules_path}/varnish.erb", binding %>
+
+
+##################################
+#                                #
+#    Create DB if not exists     #
+#                                #
+##################################
+
+<%= render "#{modules_path}/mysql-db-setup.erb", binding %>
+
+
+##################################
+#                                #
+#   'Cloud uploads' S3 script    #
+#                                #
+##################################
+
+<% mailto = 'someone@example.com' %>
+<%= render "#{modules_path}/scripts/s3-storage-cron.erb", binding %>
