@@ -53,6 +53,10 @@ if ( $urlParts[0] == 'dev' ) {
 
 	// Show errors
 	define( 'WP_DEBUG', true );
+
+	define( 'SCRIPT_DEBUG', true );
+	define( 'STYLE_DEBUG', true );
+
 } elseif ( $urlParts[0] == 'staging' ) {
 	/**
 	 * STAGING
